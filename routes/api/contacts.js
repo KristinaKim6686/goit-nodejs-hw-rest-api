@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const contactControls = require("../../controllers");
-const { validation } = require("../../middlewares");
-const { ctrlWrapper } = require("../../middlewares");
+const { auth, validation, ctrlWrapper } = require("../../middlewares");
 const { joiSchema, statusJoiSchema } = require("../../models/contact");
 
-router.get("/", ctrlWrapper(contactControls.listContacts));
+router.get("/", auth, ctrlWrapper(contactControls.listContacts));
 
 router.get("/:contactId", ctrlWrapper(contactControls.getById));
 
 router.post(
   "/",
+  auth,
   validation(joiSchema),
   ctrlWrapper(contactControls.addContact)
 );
@@ -25,7 +25,7 @@ router.put(
 router.patch(
   "/:contactId/status",
   validation(statusJoiSchema),
-  contactControls.updateStatus
+  ctrlWrapper(contactControls.updateStatus)
 );
 
 module.exports = router;

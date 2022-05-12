@@ -5,6 +5,6 @@ const router = express.Router();
 const { users: ctrl } = require("../../controllers");
 const { ctrlWrapper, auth } = require("../../middlewares");
 
-router.get("/current", auth, ctrlWrapper(ctrl.getCurrent));
+router.get("/current", ctrlWrapper(auth), ctrlWrapper(ctrl.getCurrent));
 
 module.exports = router;

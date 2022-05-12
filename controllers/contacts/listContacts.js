@@ -2,12 +2,12 @@ const { Contact } = require("../../models/contact");
 
 async function listContacts(req, res) {
   const { _id } = req.user;
-  const response = await Contact.find({ owner: _id });
+  const contacts = await Contact.find({ owner: _id }).populate("owner");
   res.json({
     status: "success",
     code: 200,
     data: {
-      response,
+      result: contacts,
     },
   });
 }

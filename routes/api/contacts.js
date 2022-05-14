@@ -4,7 +4,7 @@ const { contactsControls: ctrl } = require("../../controllers");
 const { ctrlWrapper, validation, auth } = require("../../middlewares");
 const { joiSchema, statusJoiSchema } = require("../../models/contact");
 
-router.get("/", ctrlWrapper(ctrl.listContacts));
+router.get("/", auth, ctrlWrapper(ctrl.listContacts));
 
 router.get("/:contactId", ctrlWrapper(ctrl.getById));
 
